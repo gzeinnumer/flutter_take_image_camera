@@ -46,8 +46,9 @@ class _MyAppState extends State<MyApp> {
             _imageFile == null
                 ? Text("Silahkan ambil gambar")
                 : Image.file(_imageFile),
-            Text("Path : " +
-                _imageFile.toString().substring(6).replaceAll("'", "")),
+            _imageFile != null
+                ? Text("Path : " + _imageFile.toString().substring(6).replaceAll("'", ""))
+                : Container(),
           ]),
         ),
         floatingActionButton: FloatingActionButton(
