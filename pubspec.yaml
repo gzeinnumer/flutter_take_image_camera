@@ -17,6 +17,7 @@ dependencies:
   path_provider: ^0.4.1
   image_picker: ^0.6.4
   compressimage: ^0.1.1
+  flutter_exif_rotation: ^0.2.7
 
 dev_dependencies:
   flutter_test:

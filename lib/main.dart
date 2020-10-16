@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:compressimage/compressimage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:image_picker/image_picker.dart';
 
 //ikuti tutorial iini untuk setup ke IOS
@@ -23,6 +24,8 @@ class _MyAppState extends State<MyApp> {
   Future getImage() async {
     _futureImage = ImagePicker.pickImage(source: ImageSource.camera);
     _imageFile = await _futureImage;
+    _imageFile = await FlutterExifRotation.rotateImage(path: _imageFile.path);
+
     print("FILE SIZE BEFORE: " + _imageFile.lengthSync().toString());
     await CompressImage.compress(
         imageSrc: _imageFile.path,
@@ -45,9 +48,10 @@ class _MyAppState extends State<MyApp> {
           child: ListView(children: [
             _imageFile == null
                 ? Text("Silahkan ambil gambar")
-                : Image.file(_imageFile),
+                : Image.file(_imageFile, height: 500, fit: BoxFit.contain),
             _imageFile != null
-                ? Text("Path : " + _imageFile.toString().substring(6).replaceAll("'", ""))
+                ? Text("Path : " +
+                    _imageFile.toString().substring(6).replaceAll("'", ""))
                 : Container(),
           ]),
         ),
